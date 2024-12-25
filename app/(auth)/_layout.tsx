@@ -1,6 +1,7 @@
-import images from "@/constants/images";
-import { Link, Stack } from "expo-router";
 import { Image } from "react-native";
+import { Link, Stack } from "expo-router";
+
+import images from "@/constants/images";
 
 const AuthLayout = () => {
   return (
@@ -22,7 +23,7 @@ const AuthLayout = () => {
           ),
         }}
       />
-      <Stack.Screen name="register" options={{ headerShown: false }} />
+      <Stack.Screen name="(register)" options={{ headerShown: false }} />
     </Stack>
   );
 };

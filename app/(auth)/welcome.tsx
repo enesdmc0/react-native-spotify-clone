@@ -1,6 +1,7 @@
-import images from "@/constants/images";
-import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
+import { View, Text, Image, TouchableOpacity } from "react-native";
+
+import images from "@/constants/images";
 import { welcomeData } from "@/constants/index";
 
 const Welcome = () => {
@@ -18,7 +19,9 @@ const Welcome = () => {
         </View>
         <View className="w-full flex gap-4 mt-10">
           <TouchableOpacity className="bg-s-green p-4 rounded-full flex items-center justify-center">
-            <Text className="font-bold text-xl">Sign up free</Text>
+            <Link href="/(auth)/(register)/email" className="font-bold text-xl">
+              Sign up free
+            </Link>
           </TouchableOpacity>
           {welcomeData.map((x) => (
             <TouchableOpacity

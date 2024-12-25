@@ -8,7 +8,10 @@ const Home = () => {
   return (
     <View className="flex-1 flex items-center justify-center">
       <Link href="/(auth)/login">Login</Link>
-      <Link href="/(auth)/register">Register</Link>
+      <Link href="/(auth)/(register)/email">Register Step - 1</Link>
+      <Link href="/(auth)/(register)/password">Register Step - 2</Link>
+      <Link href="/(auth)/(register)/gender">Register Step - 3</Link>
+      <Link href="/(auth)/(register)/birthday">Register Step - 4</Link>
       <Link href="/(auth)/welcome">Welcome</Link>
       <Link href="/(root)/(tabs)/home/123">Playlist ID</Link>
       <Link
