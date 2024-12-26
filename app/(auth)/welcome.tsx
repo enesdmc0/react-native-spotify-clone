@@ -6,7 +6,7 @@ import { welcomeData } from "@/constants/index";
 
 const Welcome = () => {
   return (
-    <View className="bg-[#181818] min-h-screen flex items-center justify-end w-full p-10 pb-20 ">
+    <View className="bg-s-dark1 min-h-screen flex items-center justify-end w-full p-10 pb-20 ">
       <View className=" flex items-center justify-center flex-col w-full">
         <Image className="size-16" source={images.whiteLogo} />
         <View className="mt-8">

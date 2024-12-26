@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 const Login = () => {
   return (
-    <View className="bg-[#181818] min-h-screen p-6 flex">
+    <View className="bg-s-dark1 min-h-screen p-6 flex">
       <View>
         <Text className="text-3xl font-semibold text-white">
           Email or username
