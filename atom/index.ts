@@ -1,6 +1,14 @@
 import { atom } from "jotai";
 
-export const registerFormAtom = atom({
+
+interface RegisterForm {
+    email: string;
+    password: string;
+    gender: string;
+    birthday: string;
+}
+
+export const registerFormAtom = atom<RegisterForm>({
     email: "",
     password: "",
     gender: "",
