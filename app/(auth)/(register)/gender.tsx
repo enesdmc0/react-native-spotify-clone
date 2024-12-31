@@ -12,9 +12,11 @@ import {
   BottomSheetView,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { registerFormAtom } from "@/atom";
+
 import { useRouter } from "expo-router";
 import { useAtom } from "jotai";
+import { registerFormAtom } from "@/utils/atom";
+import { GenderOptions, User } from "@/types";
 
 const Gender = () => {
   const router = useRouter();
@@ -27,7 +29,7 @@ const Gender = () => {
     bottomSheetModalRef.current?.present();
   }, []);
 
-  const handleGenderSelect = useCallback((gender: string) => {
+  const handleGenderSelect = useCallback((gender: User["gender"]) => {
     setForm((prev) => ({ ...prev, gender }));
     bottomSheetModalRef.current?.dismiss();
   }, []);
@@ -41,7 +43,7 @@ const Gender = () => {
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
-  const genderOptions = [
+  const genderOptions: GenderOptions[] = [
     { label: "Male", value: "male" },
     { label: "Female", value: "female" },
     { label: "Non-binary", value: "non-binary" },

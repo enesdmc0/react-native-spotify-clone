@@ -12,9 +12,10 @@ import {
   BottomSheetView,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-import { registerFormAtom } from "@/atom";
+
 import { useRouter } from "expo-router";
 import { useAtom } from "jotai";
+import { registerFormAtom } from "@/utils/atom";
 
 const Birthday = () => {
   const router = useRouter();

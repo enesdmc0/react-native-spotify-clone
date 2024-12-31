@@ -1,4 +1,5 @@
-import { registerFormAtom } from "@/atom";
+
+import { registerFormAtom } from "@/utils/atom";
 import { Link, useRouter } from "expo-router";
 import { useAtom } from "jotai";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";

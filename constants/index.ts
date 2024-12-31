@@ -1,4 +1,14 @@
+import { User } from "@/types";
 import images from "./images";
+
+export const AUTH_KEYS = {
+    USER_TOKEN: 'userToken',
+    // TODO: Add JWT_SECRET to .env file
+    JWT_SECRET: process.env.JWT_SECRET,
+} as const;
+
+
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const welcomeData = [
     {
@@ -13,4 +23,22 @@ export const welcomeData = [
         icon: images.apple,
         title: "Continue with Apple",
     },
+];
+
+
+export const mockUsers: User[] = [
+    {
+        id: 1,
+        email: 'test@gmail.com',
+        password: '&&||123456||&&',
+        gender: 'male',
+        birthday: '12.12.2024'
+    },
+    {
+        id: 2,
+        email: 'test1@gmail.com',
+        password: '&&||123456||&&',
+        gender: 'female',
+        birthday: '12.12.2024'
+    }
 ];

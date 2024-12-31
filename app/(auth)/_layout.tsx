@@ -1,9 +1,13 @@
 import { Image } from "react-native";
-import { Link, Stack } from "expo-router";
+import { Link, Redirect, Stack } from "expo-router";
 
 import images from "@/constants/images";
+import { isAuth } from "@/utils/actions";
 
 const AuthLayout = () => {
+  const auth = isAuth();
+  if (auth) return <Redirect href="/(root)/(tabs)/home" />;
+
   return (
     <Stack>
       <Stack.Screen name="welcome" options={{ headerShown: false }} />

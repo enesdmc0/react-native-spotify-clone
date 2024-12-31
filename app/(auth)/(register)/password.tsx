@@ -1,5 +1,6 @@
-import { registerFormAtom } from "@/atom";
+
 import images from "@/constants/images";
+import { registerFormAtom } from "@/utils/atom";
 import { Link, useRouter } from "expo-router";
 import { useAtom } from "jotai";
 import { useState } from "react";

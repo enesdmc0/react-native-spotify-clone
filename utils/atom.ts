@@ -1,12 +1,8 @@
+import { RegisterForm } from "@/types";
 import { atom } from "jotai";
 
 
-interface RegisterForm {
-    email: string;
-    password: string;
-    gender: string;
-    birthday: string;
-}
+
 
 export const registerFormAtom = atom<RegisterForm>({
     email: "",
@@ -14,3 +10,5 @@ export const registerFormAtom = atom<RegisterForm>({
     gender: "",
     birthday: "",
 })
+
+export const tokenAtom = atom<string | null>(null)
