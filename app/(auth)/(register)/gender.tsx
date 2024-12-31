@@ -17,18 +17,14 @@ import { useRouter } from "expo-router";
 import { useAtom } from "jotai";
 
 const Gender = () => {
-  const [form, setForm] = useAtom(registerFormAtom);
   const router = useRouter();
+  const [form, setForm] = useAtom(registerFormAtom);
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["50%"], []);
+  const snapPoints = useMemo(() => ["40%"], []);
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
-  }, []);
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
   }, []);
 
   const handleGenderSelect = useCallback((gender: string) => {
@@ -46,10 +42,11 @@ const Gender = () => {
   }, []);
 
   const genderOptions = [
-    { label: "Erkek", value: "male" },
-    { label: "Kadın", value: "female" },
-    { label: "Diğer", value: "other" },
-    { label: "Belirtmek İstemiyorum", value: "not-specified" },
+    { label: "Male", value: "male" },
+    { label: "Female", value: "female" },
+    { label: "Non-binary", value: "non-binary" },
+    { label: "Prefer not to say", value: "not-specified" },
+    { label: "Other", value: "other" },
   ];
 
   return (
@@ -69,13 +66,9 @@ const Gender = () => {
                 <Text className="text-white font-semibold">
                   {form.gender
                     ? genderOptions.find((g) => g.value === form.gender)?.label
-                    : "Seçiniz"}
+                    : "Select"}
                 </Text>
               </Pressable>
-
-              <Text className="text-white mt-1 text-sm">
-                Profilinizde gösterilecektir.
-              </Text>
             </View>
 
             <View className="items-center mt-16 gap-5">
@@ -86,7 +79,7 @@ const Gender = () => {
                   !form.gender ? "bg-[#717171]" : ""
                 }`}
               >
-                <Text className="text-xl font-bold text-black">İleri</Text>
+                <Text className="text-xl font-bold text-black">Next</Text>
               </TouchableOpacity>
             </View>
 
@@ -94,7 +87,6 @@ const Gender = () => {
               ref={bottomSheetModalRef}
               index={0}
               snapPoints={snapPoints}
-              onChange={handleSheetChanges}
               enablePanDownToClose
               backgroundStyle={{ backgroundColor: "#282828" }}
               handleIndicatorStyle={{ backgroundColor: "#fff" }}
@@ -104,7 +96,9 @@ const Gender = () => {
                   <TouchableOpacity
                     key={option.value}
                     onPress={() => handleGenderSelect(option.value)}
-                    className="py-4 border-b border-[#404040]"
+                    className={`py-4 rounded-lg ${
+                      form.gender === option.value ? "bg-[#363434]" : ""
+                    } `}
                   >
                     <Text className="text-white text-center font-semibold">
                       {option.label}
