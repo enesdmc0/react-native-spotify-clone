@@ -1,40 +1,36 @@
 {
   "expo": {
-    "name": "react-native-spotify-clone",
-    "slug": "react-native-spotify-clone",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+    "name": "Spotify Clone", // App store'da görünecek isim
+    "slug": "spotify-clone", // Expo'nun kullandığı benzersiz tanımlayıcı
+    "version": "1.0.0", // Uygulama versiyonu
+    "orientation": "portrait", // Ekran yönü
+    "scheme": "spotifyclone", // Deep linking için URL şeması
+    "userInterfaceStyle": "automatic", // Sistem teması uyumu
+    "icon": "./assets/images/icon.png", // Ana uygulama ikonu
+
+    "splash": {
+      // Splash screen ayarları
+      "image": "./assets/images/logo-green.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#191314"
     },
+
+    "ios": {
+      "supportsTablet": true // iPad desteği
+    },
+
     "android": {
       "adaptiveIcon": {
+        // Android adaptive icon
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/logo.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#1a1513"
-        }
-      ]
-    ],
+
+    "plugins": ["expo-router"], // Expo eklentileri
+
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true // TypeScript route desteği
     }
   }
 }
