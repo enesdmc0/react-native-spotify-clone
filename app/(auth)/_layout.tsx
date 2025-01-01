@@ -2,10 +2,11 @@ import { Image } from "react-native";
 import { Link, Redirect, Stack } from "expo-router";
 
 import images from "@/constants/images";
-import { isAuth } from "@/utils/actions";
+import { useAuth } from "@/utils/actions";
 
 const AuthLayout = () => {
-  const auth = isAuth();
+  const auth = useAuth();
+  console.log(auth, "auth-layout");
   if (auth) return <Redirect href="/(root)/(tabs)/home" />;
 
   return (

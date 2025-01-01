@@ -21,7 +21,7 @@ export const hashPassword = async (password: string): Promise<string> => {
 // Verify password function
 export const verifyPassword = async (hashedPassword: string, password: string) => {
     const parts = hashedPassword.split("||");
-    
+
     return parts.length === 3 && parts[1] === password;
 }
 
@@ -91,6 +91,9 @@ export const register = async (formData: RegisterForm): Promise<AuthResponse> =>
 // Login function
 export const login = async (email: string, password: string): Promise<AuthResponse> => {
 
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     if (!email || !password) {
         return {
             success: false,
@@ -147,13 +150,10 @@ export const logout = async (): Promise<void> => {
 };
 
 // Check if user is authenticated
-export const isAuth = () => {
+export const useAuth = () => {
     const token = useAtomValue(tokenAtom);
     // TODO: Check if token is valid
-    if (!token) {
-        return false;
-    }
-    return true;
+    return !!token;
 }
 
 

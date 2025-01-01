@@ -1,8 +1,8 @@
-import { isAuth } from "@/utils/actions";
+import { useAuth } from "@/utils/actions";
 import { Redirect } from "expo-router";
 
 const Home = () => {
-  const auth = isAuth();
+  const auth = useAuth();
 
   if (auth) return <Redirect href="/(root)/(tabs)/home" />;
 
