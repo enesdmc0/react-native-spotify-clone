@@ -4,7 +4,7 @@ import images from "./images";
 export const AUTH_KEYS = {
     USER_TOKEN: 'userToken',
     // TODO: Add JWT_SECRET to .env file
-    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_SECRET: process.env.EXPO_PUBLIC_JWT_SECRET,
 } as const;
 
 
