@@ -1,10 +1,11 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
   Pressable,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
@@ -14,12 +15,40 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import { useRouter } from "expo-router";
-import { useAtom } from "jotai";
-import { registerFormAtom } from "@/utils/atom";
+import { useAtom, useSetAtom } from "jotai";
+import { registerFormAtom, tokenAtom } from "@/utils/atom";
+import {
+  RegisterBirthdayFormData,
+  registerBirthdaySchema,
+} from "@/utils/schema";
+import { z } from "zod";
+import { toast } from "sonner-native";
+import { register } from "@/utils/actions";
 
 const Birthday = () => {
   const router = useRouter();
+  const useSetToken = useSetAtom(tokenAtom);
   const [form, setForm] = useAtom(registerFormAtom);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Partial<RegisterBirthdayFormData>>({});
+
+  const validateForm = (): boolean => {
+    try {
+      registerBirthdaySchema.parse(form);
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["40%"], []);
@@ -30,13 +59,36 @@ const Birthday = () => {
 
   const handleBirthdaySelect = useCallback((birthday: string) => {
     setForm((prev) => ({ ...prev, birthday }));
+    if (errors.birthday) {
+      setErrors((prev) => ({ ...prev, birthday: "" }));
+    }
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
-  const handleNext = useCallback(() => {
-    if (!form.birthday) return;
-    router.push("/(auth)/(register)/birthday"); // TODO: Update to the next page
-  }, [form.birthday, router]);
+  const handlePress = async () => {
+    try {
+      if (!validateForm()) {
+        toast.error("Please select your birthday");
+        return;
+      }
+
+      setLoading(true);
+
+      const response = await register(form);
+
+      if (response.success) {
+        useSetToken(response.data?.token ?? null);
+        toast.success(response.message);
+        router.replace("/(root)/(tabs)/home");
+      } else {
+        toast.error(response.message);
+      }
+    } catch (err) {
+      toast.error("An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleOutsidePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
@@ -72,7 +124,7 @@ const Birthday = () => {
                 className="bg-[#717171] rounded-md h-14 px-5 justify-center mt-1"
               >
                 <Text className="text-white font-semibold">
-                  {form.gender
+                  {form.birthday
                     ? birthdayOptions.find((b) => b.value === form.birthday)
                         ?.label
                     : "Select"}
@@ -82,13 +134,15 @@ const Birthday = () => {
 
             <View className="items-center mt-16 gap-5">
               <TouchableOpacity
-                onPress={handleNext}
-                disabled={!form.gender}
-                className={`bg-white px-11 py-5 rounded-full ${
-                  !form.gender ? "bg-[#717171]" : ""
-                }`}
+                onPress={handlePress}
+                disabled={!form.birthday}
+                className="disabled:bg-[#717171] bg-white px-11 py-5 rounded-full "
               >
-                <Text className="text-xl font-bold text-black">Next</Text>
+                {loading ? (
+                  <ActivityIndicator color="#000000" />
+                ) : (
+                  <Text className="text-xl font-bold text-black">Register</Text>
+                )}
               </TouchableOpacity>
             </View>
 

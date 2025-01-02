@@ -66,7 +66,7 @@ const Gender = () => {
       toast.error("Please select your gender");
       return;
     }
-    console.log(form);
+
     router.push("/(auth)/(register)/birthday");
   };
 

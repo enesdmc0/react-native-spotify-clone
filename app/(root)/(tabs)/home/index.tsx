@@ -17,6 +17,7 @@ const Home = () => {
   return (
     <View className="flex-1 flex items-center justify-center">
       <Link href="/(root)/(tabs)/home/profile">Profile</Link>
+      <Link href="/(auth)/login">Login</Link>
       <TouchableOpacity onPress={handleLogout}>
         <Text>Logout</Text>
       </TouchableOpacity>

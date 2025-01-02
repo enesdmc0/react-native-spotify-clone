@@ -16,7 +16,9 @@ export interface RegisterForm {
 export interface AuthResponse {
   success: boolean;
   message: string;
-  data?: unknown;
+  data?: {
+    token: string;
+  };
 }
 
 export interface GenderOptions {

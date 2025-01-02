@@ -40,6 +40,10 @@ export const generateToken = async (email: string, password: string): Promise<st
 
 // Register function
 export const register = async (formData: RegisterForm): Promise<AuthResponse> => {
+
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const { email, password, gender, birthday } = formData;
 
     if (!email || !password || !gender || !birthday) {
@@ -84,6 +88,9 @@ export const register = async (formData: RegisterForm): Promise<AuthResponse> =>
     return {
         success: true,
         message: "User created and logged in",
+        data: {
+            token
+        }
     };
 
 }
@@ -135,6 +142,9 @@ export const login = async (email: string, password: string): Promise<AuthRespon
     return {
         success: true,
         message: "Logged in",
+        data: {
+            token
+        }
     };
 
 }

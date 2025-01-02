@@ -14,9 +14,11 @@ import {
 import { z } from "zod";
 import { toast } from "sonner-native";
 import { useRouter } from "expo-router";
-
+import { useSetAtom } from "jotai";
+import { tokenAtom } from "@/utils/atom";
 
 const Login = () => {
+  const useSetToken = useSetAtom(tokenAtom);
   const router = useRouter();
   const [errors, setErrors] = useState<Partial<LoginFormData>>({});
   const [loading, setLoading] = useState(false);
@@ -57,6 +59,7 @@ const Login = () => {
       const response = await login(form.email, form.password);
 
       if (response.success) {
+        useSetToken(response.data?.token ?? null);
         toast.success(response.message);
         router.replace("/(root)/(tabs)/home");
       } else {

@@ -15,6 +15,7 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchToken = async () => {
+      console.log("AuthProvider çalıştı")
       try {
         const token = await SecureStore.getItemAsync(AUTH_KEYS.USER_TOKEN);
         setToken(token);
