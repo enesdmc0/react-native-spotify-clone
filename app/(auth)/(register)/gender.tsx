@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -17,10 +17,34 @@ import { useRouter } from "expo-router";
 import { useAtom } from "jotai";
 import { registerFormAtom } from "@/utils/atom";
 import { GenderOptions, User } from "@/types";
+import { RegisterGenderFormData, registerGenderSchema } from "@/utils/schema";
+import { z } from "zod";
+import { toast } from "sonner-native";
 
 const Gender = () => {
   const router = useRouter();
+
   const [form, setForm] = useAtom(registerFormAtom);
+
+  const [errors, setErrors] = useState<Partial<RegisterGenderFormData>>({});
+
+  const validateForm = (): boolean => {
+    try {
+      registerGenderSchema.parse(form);
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            newErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+      return false;
+    }
+  };
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["40%"], []);
@@ -31,13 +55,20 @@ const Gender = () => {
 
   const handleGenderSelect = useCallback((gender: User["gender"]) => {
     setForm((prev) => ({ ...prev, gender }));
+    if (errors.gender) {
+      setErrors((prev) => ({ ...prev, gender: "" }));
+    }
     bottomSheetModalRef.current?.dismiss();
   }, []);
 
-  const handleNext = useCallback(() => {
-    if (!form.gender) return;
+  const handleNext = () => {
+    if (!validateForm()) {
+      toast.error("Please select your gender");
+      return;
+    }
+    console.log(form);
     router.push("/(auth)/(register)/birthday");
-  }, [form.gender, router]);
+  };
 
   const handleOutsidePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
@@ -77,9 +108,7 @@ const Gender = () => {
               <TouchableOpacity
                 onPress={handleNext}
                 disabled={!form.gender}
-                className={`bg-white px-11 py-5 rounded-full ${
-                  !form.gender ? "bg-[#717171]" : ""
-                }`}
+                className="disabled:bg-[#717171] bg-white px-11 py-5 rounded-full "
               >
                 <Text className="text-xl font-bold text-black">Next</Text>
               </TouchableOpacity>

@@ -15,7 +15,7 @@ export const registerPasswordSchema = z.object({
 })
 
 export const registerGenderSchema = z.object({
-    gender: z.enum(["male", "female", "non-binary", "not-specified", "other"])
+    gender: z.enum(["male", "female", "non-binary", "not-specified", "other", ""])
         .default("not-specified"),
 })
 
