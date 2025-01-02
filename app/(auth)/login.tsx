@@ -1,5 +1,5 @@
 import { login } from "@/utils/actions";
-import { loginSchema } from "@/utils/schema";
+import { LoginFormData, loginSchema } from "@/utils/schema";
 import { useCallback, useState } from "react";
 import {
   View,
@@ -14,7 +14,7 @@ import {
 import { z } from "zod";
 import { toast } from "sonner-native";
 import { useRouter } from "expo-router";
-type LoginFormData = z.infer<typeof loginSchema>;
+
 
 const Login = () => {
   const router = useRouter();
@@ -80,7 +80,6 @@ const Login = () => {
             Email or username
           </Text>
           <TextInput
-            textContentType="emailAddress"
             value={form.email}
             onChangeText={(value) => {
               setForm({ ...form, email: value });
@@ -88,12 +87,13 @@ const Login = () => {
                 setErrors((prev) => ({ ...prev, email: "" }));
               }
             }}
-            autoCapitalize="none"
-            autoComplete="email"
             autoCorrect={false}
-            keyboardType="email-address"
-            returnKeyType="next"
             editable={!loading}
+            autoComplete="email"
+            returnKeyType="next"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
             className="bg-[#717171] rounded-md h-14 px-5 font-semibold flex items-center text-white mt-1"
           />
           {errors.email ? (
