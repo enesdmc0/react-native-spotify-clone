@@ -1,6 +1,6 @@
 import { registerFormAtom } from "@/utils/atom";
 import { RegisterEmailFormData, registerEmailSchema } from "@/utils/schema";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import {
@@ -17,8 +17,10 @@ import { z } from "zod";
 
 const Email = () => {
   const router = useRouter();
-  const [errors, setErrors] = useState<Partial<RegisterEmailFormData>>({});
+
   const [form, setForm] = useAtom(registerFormAtom);
+  
+  const [errors, setErrors] = useState<Partial<RegisterEmailFormData>>({});
 
   const validateForm = (): boolean => {
     try {
