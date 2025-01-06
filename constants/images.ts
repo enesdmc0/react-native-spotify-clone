@@ -7,6 +7,10 @@ import google from "@/assets/images/google.png";
 import left from "@/assets/images/left.png";
 import passwordHide from "@/assets/images/password-hide.png";
 import passwordShow from "@/assets/images/password-show.png";
+import tab1 from "@/assets/icons/tab1.png";
+import tab2 from "@/assets/icons/tab2.png";
+import tab3 from "@/assets/icons/tab3.png";
+import tab4 from "@/assets/icons/tab4.png";
 export default {
     blackLogo,
     whiteLogo,
@@ -16,5 +20,9 @@ export default {
     google,
     left,
     passwordHide,
-    passwordShow
+    passwordShow,
+    tab1,
+    tab2,
+    tab3,
+    tab4,
 };

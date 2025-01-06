@@ -2,7 +2,8 @@ import { logout } from "@/utils/actions";
 import { tokenAtom } from "@/utils/atom";
 import { Link, useRouter } from "expo-router";
 import { useSetAtom } from "jotai";
-import { View, Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
   const router = useRouter();
@@ -15,13 +16,26 @@ const Home = () => {
   };
 
   return (
-    <View className="flex-1 flex items-center justify-center">
-      <Link href="/(root)/(tabs)/home/profile">Profile</Link>
-      <Link href="/(auth)/login">Login</Link>
+    <SafeAreaView className="h-full bg-[#121212] items-center justify-center gap-10">
+      <Text className="text-white font-bold text-2xl underline">Home Page</Text>
       <TouchableOpacity onPress={handleLogout}>
-        <Text>Logout</Text>
+        <Text className="text-white font-bold text-2xl bg-red-950 rounded-lg p-3 ">
+          Logout
+        </Text>
       </TouchableOpacity>
-    </View>
+      <Link
+        className="text-white font-bold text-2xl rounded-lg p-3 bg-green-600 "
+        href="/(auth)/login"
+      >
+        Login
+      </Link>
+      <Link
+        className="text-white font-bold text-2xl rounded-lg p-3 bg-purple-600 "
+        href="/(root)/(tabs)/home/1"
+      >
+        Playlist - 1
+      </Link>
+    </SafeAreaView>
   );
 };
 
